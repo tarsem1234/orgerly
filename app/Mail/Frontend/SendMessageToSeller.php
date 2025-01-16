@@ -57,12 +57,10 @@ class SendMessageToSeller extends Mailable
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
-    public function build()
+    public function build(): static
     {
-        return $this->from(env('MAIL_FROM_ADDRESS'), 'Orgerly')
+        return $this->from(config('mail.from.address'), 'Orgerly')
             ->to($this->email)
             ->subject($this->emailSubject)
             ->view($this->view, ['conversationLInk' => $this->conversationLInk, 'sellerMessage' => $this->message, 'senderName' => $this->sender, 'userName' => $this->userName]);

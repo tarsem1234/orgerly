@@ -13,6 +13,7 @@ use App\Models\Signer;
 use App\Models\UserWellnessSession;
 use App\Services\EmailLogService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 // use App\Models\Backend\UserWellnessPoint;
@@ -20,7 +21,7 @@ class CronController extends Controller
 {
     public function checkBackToMarket($days = '')
     {
-        //        \Log::info('cron set.');
+        //        Log::info('cron set.');
         $previousDate = ! empty($days) ? Carbon::now()->subDays($days) : Carbon::now()->subDays(config('settings.back_to_market_days'));
         //	dd($previousDate);
         $properties = Property::where('created_at', '<', $previousDate)
@@ -82,7 +83,7 @@ class CronController extends Controller
 
     public function WellnessReport()
     {
-        \Log::info('Wellness Cron Run');
+        Log::info('Wellness Cron Run');
         $welness_complete_sessions = UserWellnessSession::where('status', 1)
             ->groupBy('user_id')
             ->select('user_id') // Add more aggregates if needed

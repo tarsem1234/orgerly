@@ -9,13 +9,14 @@ use App\Models\AccountabilityPartner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class AccountabilityPartnerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         //
         $partners = AccountabilityPartner::where('user_id', Auth::id())->latest()->paginate(config('constant.common_pagination'));
@@ -27,7 +28,7 @@ class AccountabilityPartnerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         //
         return view('frontend.account_partner.create');

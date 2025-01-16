@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\ContractToolSignerSignerRequest;
+use App\Http\Requests\Frontend\SignStoreSignerRequest;
 use App\Models\Access\User\User;
 use App\Models\Network;
 use App\Models\Signer;
@@ -11,12 +13,14 @@ use App\Models\UserProfile;
 use App\Notifications\Frontend\Auth\RecieverNeedsLogin;
 use App\Notifications\Frontend\Auth\SenderNeedsConfirmation;
 use App\Notifications\Frontend\Auth\SenderNeedsRegistration;
-use Auth;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class SignerController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $signers = Signer::where('from_user_id', Auth::id())->whereHas('invited_users')->with([
             'invited_users' => function ($query) {
@@ -27,25 +31,15 @@ class SignerController extends Controller
         return view('frontend.signer.index', compact('signers'));
     }
 
-    public function create()
+    public function create(): View
     {
 
         return view('frontend.signer.create');
     }
 
-    public function signStore(Request $request)
+    public function signStore(SignStoreSignerRequest $request): RedirectResponse
     {
         if (isset($request->address)) {
-            $this->validate($request, [
-                'name' => 'required',
-                'county' => 'required',
-                'zip_code' => 'required',
-                'city' => 'required',
-                'state' => 'required',
-                'address' => 'required',
-                'phone_no' => 'required|max:10',
-                'email' => 'required|email',
-            ]);
         } else {
             $this->validate($request, [
                 'name' => 'required',
@@ -145,7 +139,7 @@ class SignerController extends Controller
         return $signer;
     }
 
-    public function resendActivation($id)
+    public function resendActivation($id): RedirectResponse
     {
         if (Auth::check() && $id) {
             $ifExists = User::find($id);
@@ -238,21 +232,9 @@ class SignerController extends Controller
         //                500);
     }
 
-    public function contractToolSigner(Request $request)
+    public function contractToolSigner(ContractToolSignerSignerRequest $request): JsonResponse
     {
         if (! empty($request->type) && $request->type == 'rent') {
-            $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|email',
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'county' => 'required',
-                'zip_code' => 'required',
-                'city' => 'required',
-                'state' => 'required',
-                'address' => 'required',
-                'phone_no' => 'required|max:10',
-            ]);
         } else {
             $this->validate($request, [
                 'name' => 'required',

@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\StoreCompanyRequest;
-// use App\Http\Requests\Backend\UpdateCompanyRequest;
 use App\Models\Backend\Company;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+// use App\Http\Requests\Backend\UpdateCompanyRequest;
+use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         //
         $companies = Company::latest()->get();
@@ -23,7 +26,7 @@ class CompanyController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         //
         return view('backend.company.create');
@@ -32,7 +35,7 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(StoreCompanyRequest $request): RedirectResponse
     {
 
         $checkIfComp = Company::where('name', $request->company)->first();
@@ -63,7 +66,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $id)
+    public function edit(int $id): View
     {
         if ($id) {
             $company = Company::find($id);
@@ -75,7 +78,7 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreCompanyRequest $request, int $id)
+    public function update(StoreCompanyRequest $request, int $id): RedirectResponse
     {
         //
         $input['name'] = $request->company;
@@ -92,7 +95,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         if (Company::where('id', $id)->delete()) {
 
