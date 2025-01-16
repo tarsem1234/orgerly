@@ -100,7 +100,7 @@ class RegisterController extends Controller
         return response(['success' => true, 'services' => $services]);
     }
 
-    public function userstore(RegisterRequest $request)
+    public function userstore(RegisterRequest $request): RedirectResponse
     {
 
         $data = $request->all();
@@ -209,7 +209,7 @@ class RegisterController extends Controller
         return redirect()->back()->with('flash_danger', 'Invalid User Data.');
     }
 
-    public function userstoreSigner(RegisterRequestSigner $request)
+    public function userstoreSigner(RegisterRequestSigner $request): RedirectResponse
     {
 
         $data = $request->all();

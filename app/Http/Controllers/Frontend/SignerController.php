@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Frontend\ContractToolSignerSignerRequest;
 use App\Http\Requests\Frontend\SignStoreSignerRequest;
 use App\Http\Controllers\Controller;
@@ -18,7 +21,7 @@ use Illuminate\Http\Request;
 
 class SignerController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $signers = Signer::where('from_user_id', Auth::id())->whereHas('invited_users')->with([
             'invited_users' => function ($query) {
@@ -29,13 +32,13 @@ class SignerController extends Controller
         return view('frontend.signer.index', compact('signers'));
     }
 
-    public function create()
+    public function create(): View
     {
 
         return view('frontend.signer.create');
     }
 
-    public function signStore(SignStoreSignerRequest $request)
+    public function signStore(SignStoreSignerRequest $request): RedirectResponse
     {
         if (isset($request->address)) {
         } else {
@@ -137,7 +140,7 @@ class SignerController extends Controller
         return $signer;
     }
 
-    public function resendActivation($id)
+    public function resendActivation($id): RedirectResponse
     {
         if (Auth::check() && $id) {
             $ifExists = User::find($id);
@@ -230,7 +233,7 @@ class SignerController extends Controller
         //                500);
     }
 
-    public function contractToolSigner(ContractToolSignerSignerRequest $request)
+    public function contractToolSigner(ContractToolSignerSignerRequest $request): JsonResponse
     {
         if (! empty($request->type) && $request->type == 'rent') {
         } else {

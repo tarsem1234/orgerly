@@ -16,7 +16,7 @@ class RatingTemplateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         //
         $templates = RatingTemplate::latest()->get();
@@ -27,7 +27,7 @@ class RatingTemplateController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         //
         return view('backend.rating_template.create');
