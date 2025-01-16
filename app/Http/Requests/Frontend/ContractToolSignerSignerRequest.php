@@ -14,10 +14,19 @@ class ContractToolSignerSignerRequest extends FormRequest
     public function rules()
     {
         return [
-'name'       => 'required',
-'email'      => 'required|email',
-'first_name' => 'required',
-'last_name'  => 'required',
+'name'       => [
+                'required',
+            ],
+'email'      => [
+                'required',
+                'email',
+            ],
+'first_name' => [
+                'required',
+            ],
+'last_name'  => [
+                'required',
+            ],
 ];
     }
 }
