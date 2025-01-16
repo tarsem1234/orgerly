@@ -106,10 +106,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Backend\UserLearningPoint::class);
     }
+
     public function wellness_points(): HasMany
     {
         return $this->hasMany(\App\Models\Backend\UserWellnessPoint::class);
     }
+
     public function network(): HasOne
     {
         return $this->hasOne(\App\Models\Network::class);

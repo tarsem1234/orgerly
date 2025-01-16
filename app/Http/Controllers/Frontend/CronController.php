@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Frontend\WellnessSummaryMail;
+use App\Models\Access\User\User;
+use App\Models\Backend\UserWellnessPoint;
 use App\Models\Property;
 use App\Models\RentOffer;
 use App\Models\SaleOffer;
+use App\Models\Signer;
+use App\Models\UserWellnessSession;
 use App\Services\EmailLogService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Backend\UserWellnessPoint;
-use App\Models\UserWellnessSession;
-use App\Models\Access\User\User;
-use App\Models\Signer;
-use App\Mail\Frontend\WellnessSummaryMail;
+
 // use App\Models\Backend\UserWellnessPoint;
 class CronController extends Controller
 {
@@ -78,40 +79,35 @@ class CronController extends Controller
         $saveLog = new EmailLogService;
         $saveLog->saveLog($property->id, $property->user_id, null, $emailSubject, $emailBody, config('constant.property_type.'.$property->property_type), url()->previous());
     }
-     public function WellnessReport()
+
+    public function WellnessReport()
     {
-        \Log::info("Wellness Cron Run");
+        \Log::info('Wellness Cron Run');
         $welness_complete_sessions = UserWellnessSession::where('status', 1)
-    ->groupBy('user_id')
-    ->select('user_id') // Add more aggregates if needed
-    ->get();
-        if(count($welness_complete_sessions) > 0)
-        {
-            foreach ($welness_complete_sessions as $key => $value) 
-            {
-                $user_ids = User::with('user_profile')->where('id','=',(int)$value->user_id)->get()->first();
-                
-                $points = UserWellnessPoint::where('user_id',(int)$value->user_id)->sum('points');
-                if($user_ids->first_name != null)
-                {
+            ->groupBy('user_id')
+            ->select('user_id') // Add more aggregates if needed
+            ->get();
+        if (count($welness_complete_sessions) > 0) {
+            foreach ($welness_complete_sessions as $key => $value) {
+                $user_ids = User::with('user_profile')->where('id', '=', (int) $value->user_id)->get()->first();
+
+                $points = UserWellnessPoint::where('user_id', (int) $value->user_id)->sum('points');
+                if ($user_ids->first_name != null) {
                     $data['first_name'] = $user_ids->first_name.' '.$user_ids->last_name;
-                }
-                else
-                {
+                } else {
                     $data['first_name'] = $user_ids->user_profile->full_name;
                 }
                 $data['points'] = $points;
                 // $data['email'] = $user_ids->email;
-                
+
                 Mail::to($user_ids->email)->send(new WellnessSummaryMail($data));
-                $partners = Signer::where('from_user_id','=',(int)$value->user_id)->get();
-                foreach($partners as $key => $partner)
-                {
-                    
-                    $user_id_partner = User::where('id','=',(int)$partner->invited_user_id)->get()->first();
+                $partners = Signer::where('from_user_id', '=', (int) $value->user_id)->get();
+                foreach ($partners as $key => $partner) {
+
+                    $user_id_partner = User::where('id', '=', (int) $partner->invited_user_id)->get()->first();
                     Mail::to($user_id_partner->email)->send(new WellnessSummaryMail($data));
                 }
-                
+
             }
         }
     }

@@ -9,7 +9,7 @@ return [
     'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+
     'aliases' => Facade::defaultAliases()->merge([
         'Active' => HieuLe\Active\Facades\Active::class,
         'Gravatar' => Creativeorange\Gravatar\Facades\Gravatar::class,
@@ -21,5 +21,5 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ])->toArray(),
-
 ];
+

@@ -16,8 +16,7 @@ class SaveRatingTemplateRequest extends FormRequest
                 'required',
                 'max:150',
             ],
-            
-            
+
             'template_option' => [
                 'required',
             ],

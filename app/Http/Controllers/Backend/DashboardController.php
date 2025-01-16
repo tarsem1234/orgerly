@@ -66,7 +66,7 @@ class DashboardController extends Controller
         //     ->with('images', 'availableWeeks')->get()->count();
 
         return view('backend.dashboard',
-            ['businessUsers' => $businessUsers, 'users' => $users, 'adminUsers' => $adminUsers,'deactivatedUsers' => $deactivatedUsers,
+            ['businessUsers' => $businessUsers, 'users' => $users, 'adminUsers' => $adminUsers, 'deactivatedUsers' => $deactivatedUsers,
                 'deactivatedAdminUsers' => $deactivatedAdminUsers, 'deactivatedBusinessUsers' => $deactivatedBusinessUsers]);
     }
 }

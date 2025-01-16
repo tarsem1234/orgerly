@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\AccountabilityPartnerController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\ContractTools;
@@ -10,13 +11,11 @@ use App\Http\Controllers\Frontend\ForumReplyController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\MyDocumentsController;
 use App\Http\Controllers\Frontend\NetworkController;
-use App\Http\Controllers\Frontend\OfferController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PdfController;
+use App\Http\Controllers\Frontend\PropertyController;
 use App\Http\Controllers\Frontend\RegisterController;
 use App\Http\Controllers\Frontend\SignerController;
-use App\Http\Controllers\Frontend\AccountabilityPartnerController;
-use App\Http\Controllers\Frontend\PropertyController;
 use App\Http\Controllers\Frontend\User;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +39,6 @@ Route::get('blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');
 
 Route::get('page/{slug}', [PageController::class, 'getPage'])->name('page.show');
 
-
 // Network Portal
 Route::get('support-network', [NetworkController::class, 'supportNetwork'])->name('network.support');
 Route::get('social-network', [NetworkController::class, 'socialNetwork'])->name('network.social');
@@ -60,7 +58,6 @@ Route::get('help', [PageController::class, 'help'])->name('help');
 Route::get('document-portal', [PageController::class, 'documentPortal'])->name('documentPortal');
 Route::get('document-portal/{stateId}', [PageController::class, 'documentsList'])->name('documentsList');
 Route::get('document-portal/{stateId}/{documentId}', [PageController::class, 'viewDocument'])->name('viewDocument');
-
 
 //Forum
 Route::resource('forums', ForumController::class);
@@ -108,7 +105,6 @@ Route::middleware('auth')->group(function () {
     Route::get('password/edit', [RegisterController::class, 'editPassword'])->name('password.edit');
     Route::post('password/change', [RegisterController::class, 'passwordChange'])->name('password.change');
     //property
-    
 
     //Edit Profile
     Route::get('profile/', [RegisterController::class, 'profile'])->name('profile.view');
@@ -117,7 +113,6 @@ Route::middleware('auth')->group(function () {
     Route::post('user/profile/update', [RegisterController::class, 'profileUpdate'])->name('profileUpdateSave');
 
     // Property Offers
-    
 
     Route::get('document-lead-based-paint-hazards', [MyDocumentsController::class, 'documentLeadBasedPaintHazards'])->name('documentLeadBasedPaintHazards');
     Route::get('document-lead-based-paint-hazards-rent', [MyDocumentsController::class, 'documentLeadBasedPaintHazardsRent'])->name('documentLeadBasedPaintHazardsRent');
@@ -366,12 +361,12 @@ Route::middleware('auth')->group(function () {
     Route::middleware('OnlyUsers')->group(function () {
         //Signers
         Route::get('signers', [SignerController::class, 'index'])->name('signer.index');
-    Route::get('signer/create', [SignerController::class, 'create'])->name('signer.create');
-    Route::post('signer/store', [SignerController::class, 'signStore'])->name('signer.store');
-    Route::get('signer/resend-activation/{id}', [SignerController::class, 'resendActivation'])->name('resend.activation');
-    Route::get('signer/delete/{id}', [SignerController::class, 'deleteSigner'])->name('delete.signer');
-    Route::get('signer/view/{id}', [SignerController::class, 'signerView'])->name('signer.view');
-    //accounting partner
+        Route::get('signer/create', [SignerController::class, 'create'])->name('signer.create');
+        Route::post('signer/store', [SignerController::class, 'signStore'])->name('signer.store');
+        Route::get('signer/resend-activation/{id}', [SignerController::class, 'resendActivation'])->name('resend.activation');
+        Route::get('signer/delete/{id}', [SignerController::class, 'deleteSigner'])->name('delete.signer');
+        Route::get('signer/view/{id}', [SignerController::class, 'signerView'])->name('signer.view');
+        //accounting partner
         Route::get('account_partner', [AccountabilityPartnerController::class, 'index'])->name('account_partner.index');
         Route::get('account_partner/create', [AccountabilityPartnerController::class, 'create'])->name('account_partner.create');
         Route::post('account_partner/store', [AccountabilityPartnerController::class, 'signStore'])->name('account_partner.store');
@@ -395,7 +390,7 @@ Route::middleware('auth')->group(function () {
         // Route::get('favorite/delete/{id}', [FavoriteController::class, 'favoriteDelete'])->name('favorite.delete');
 
         // sign documents for partners or co-signers
-        
+
     });
     Route::get('back-to-market/{id}', [PropertyController::class, 'backToMarket'])->name('backToMarket');
     Route::get('change-property-status/{id}', [PropertyController::class, 'changePropertyStatus'])->name('changePropertyStatus');

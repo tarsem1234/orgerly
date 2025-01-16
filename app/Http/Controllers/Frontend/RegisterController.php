@@ -57,16 +57,13 @@ class RegisterController extends Controller
             }
             // dd($user);
             if ($user) {
-                
-                if($user->signer_status == 1)
-                {
+
+                if ($user->signer_status == 1) {
                     return view('frontend.userRegister.userCreate_signer', compact('user', 'state'));
-                }
-                else
-                {
+                } else {
                     return view('frontend.userRegister.userCreate', compact('user', 'state'));
                 }
-                
+
             } else {
 
                 return redirect()->route('frontend.auth.login')->with('flash_danger', 'Invalid URL.');
@@ -107,11 +104,11 @@ class RegisterController extends Controller
     {
 
         $data = $request->all();
-        
+
         // update new signer User
         if (isset($data['savedTime'])) {
             $existingUser = User::where('email', $data['email'])->where('created_at', $data['savedTime'])->with('user_profile', 'business_profile')->first();
-            
+
             if ($existingUser) {
 
                 $this->_updateExistingUser($existingUser, $data);
@@ -160,8 +157,7 @@ class RegisterController extends Controller
                     if ($userProfile->save()) {
 
                         $user->attachRole(config('constant.inverse_user_type.User'));   //assign user role
-                        if(isset($data['interest']))
-                        {
+                        if (isset($data['interest'])) {
                             foreach ($data['interest'] as $interest) {
                                 $userInterest = new UserInterest;
 
@@ -212,6 +208,7 @@ class RegisterController extends Controller
 
         return redirect()->back()->with('flash_danger', 'Invalid User Data.');
     }
+
     public function userstoreSigner(RegisterRequestSigner $request)
     {
 
@@ -269,8 +266,7 @@ class RegisterController extends Controller
                     if ($userProfile->save()) {
 
                         $user->attachRole(config('constant.inverse_user_type.User'));   //assign user role
-                        if(isset($data['interest']))
-                        {
+                        if (isset($data['interest'])) {
                             foreach ($data['interest'] as $interest) {
                                 $userInterest = new UserInterest;
 
@@ -321,6 +317,7 @@ class RegisterController extends Controller
 
         return redirect()->back()->with('flash_danger', 'Invalid User Data.');
     }
+
     private function _checkState($data)
     {
         $checkState = State::where('state', $data['state'])->first();
@@ -333,20 +330,17 @@ class RegisterController extends Controller
         $getlanlord = \App\Models\LandlordQuestionnaire::where('partners', $existingUser->id)->get();
 
         $gettenant = \App\Models\TenantQuestionnaire::where('partners', $existingUser->id)->get();
-        
-        $checkState = $this->_checkState($data); 
-        if($existingUser->signer_status == 1)
-        {
+
+        $checkState = $this->_checkState($data);
+        if ($existingUser->signer_status == 1) {
             $input['password'] = Hash::make($data['password']);
             $input['state_id'] = 0;
             $input['confirmation_code'] = $data['code'];
-            $input['county'] = !empty($data['county'])?$data['county']:'';
-            $input['city'] = !empty($data['city'])?$data['city']:'';
-            $input['phone_no'] = !empty($data['phone_no'])?$data['phone_no']:00000000;
-            $input['zip_code'] = !empty($data['zip_code'])?$data['zip_code']:'';
-        }
-        else
-        {
+            $input['county'] = ! empty($data['county']) ? $data['county'] : '';
+            $input['city'] = ! empty($data['city']) ? $data['city'] : '';
+            $input['phone_no'] = ! empty($data['phone_no']) ? $data['phone_no'] : 00000000;
+            $input['zip_code'] = ! empty($data['zip_code']) ? $data['zip_code'] : '';
+        } else {
             $input['password'] = Hash::make($data['password']);
             $input['state_id'] = $checkState->id;
             $input['confirmation_code'] = $data['code'];
@@ -354,9 +348,9 @@ class RegisterController extends Controller
             $input['city'] = $data['city'];
             $input['phone_no'] = $data['phone_no'];
             $input['zip_code'] = $data['zip_code'];
-          //find if state exists or not
+            //find if state exists or not
         }
-        
+
         if (isset($data['longitude']) && $data['longitude']) {
             $input['longitude'] = $data['longitude'];
         }
@@ -400,8 +394,7 @@ class RegisterController extends Controller
                 $userProfile['user_id'] = $existingUser->id;
                 $userProfile['full_name'] = $data['name'];
                 $userProfile['address'] = $data['address'];
-                if($existingUser->signer_status == 0)
-                {
+                if ($existingUser->signer_status == 0) {
                     $userProfile['share_profile'] = config('constant.inverse_share_profile.'.$data['share_profile']);
                 }
                 // $userProfile['share_profile'] = config('constant.inverse_share_profile.'.$data['share_profile']);
@@ -415,8 +408,7 @@ class RegisterController extends Controller
                 UserProfile::where('user_id', $existingUser->id)->update($userProfile);
                 $getUserProfileId = UserProfile::where('user_id', $existingUser->id)->first();
                 if ($getUserProfileId) {
-                    if(isset($data['interest']))
-                    {
+                    if (isset($data['interest'])) {
                         foreach ($data['interest'] as $interest) {
                             $userInterest = new UserInterest;
                             $userInterest->user_profile_id = $getUserProfileId->id;
@@ -473,7 +465,7 @@ class RegisterController extends Controller
     public function profileUpdate(UpdateRegisterRequest $request)
     {
         $data = $request->all();
-        
+
         $checkState = State::where('state', $data['state'])->first();
         if (! $checkState) {
             return redirect()->back()->with('flash_danger', 'State not found.');
@@ -515,8 +507,7 @@ class RegisterController extends Controller
                 }
                 $loggedInUser = User::where('id', Auth::id())->with('user_profile')->first();
                 UserInterest::where('user_profile_id', $loggedInUser->user_profile->id)->forcedelete();
-                if(isset($data['interest']))
-                {
+                if (isset($data['interest'])) {
                     foreach ($data['interest'] as $interest) {
                         $userInterest = new UserInterest;
                         $userInterest->user_profile_id = $loggedInUser->user_profile->id;
@@ -524,7 +515,6 @@ class RegisterController extends Controller
                         $userInterest->save();
                     }
                 }
-                
 
                 return redirect()->route('frontend.user.dashboard')->with('flash_success', 'User updated successfully.');
             } elseif ($data['user_type'] == config('constant.user_type.2')) {

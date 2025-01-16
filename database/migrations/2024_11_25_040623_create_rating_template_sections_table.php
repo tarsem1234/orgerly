@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('rating_template_id');
             $table->json('questions')->nullable();
-             $table->timestamps();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
