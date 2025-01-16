@@ -12,8 +12,6 @@ class SaleOffer extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'sale_offers';
-
     public function property(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Property::class);

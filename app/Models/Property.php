@@ -13,8 +13,6 @@ class Property extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'properties';
-
     public function architechture(): HasOne
     {
         return $this->hasOne(\App\Models\PropertyArchitecture::class, 'property_id');
