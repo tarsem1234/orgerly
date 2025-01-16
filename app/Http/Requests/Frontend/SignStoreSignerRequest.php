@@ -4,7 +4,7 @@ namespace App\Http\Requests\Frontend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ConversationMessageRequest extends FormRequest
+class SignStoreSignerRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,6 +13,9 @@ class ConversationMessageRequest extends FormRequest
      */
     public function rules()
     {
-        return ['message' => 'required'];
+        return [
+'name'  => 'required',
+'email' => 'required|email',
+];
     }
 }
