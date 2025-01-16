@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('emp_id');
             $table->integer('manager_id')->nullable();
             $table->integer('template_section_id');
-            $table->string('question',3000);
+            $table->string('question', 3000);
             $table->integer('rating');
             $table->boolean('is_active')->default(1);
             $table->integer('approval_group_id')->nullable();

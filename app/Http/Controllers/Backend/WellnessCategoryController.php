@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\StoreWellnessCategoryRequest;
 use App\Http\Requests\Backend\UpdateWellnessCategoryRequest;
 // use App\Models\WellnessCategory;
-use Illuminate\Http\Request;
 use App\Models\Backend\WellnessCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+
 class WellnessCategoryController extends Controller
 {
     /**
@@ -69,6 +69,7 @@ class WellnessCategoryController extends Controller
                 ['category' => $category]);
         }
     }
+
     public function deactivate($id): RedirectResponse
     {
         if ($id) {
@@ -92,6 +93,7 @@ class WellnessCategoryController extends Controller
                 'Category Updation Failed.');
         }
     }
+
     /**
      * Update the specified resource in storage.
      */

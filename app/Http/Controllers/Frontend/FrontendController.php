@@ -24,6 +24,7 @@ class FrontendController extends Controller
     {
         return view('frontend.landing-page.landing_home');
     }
+
     public function home2(): View
     {
         return view('frontend.home2');

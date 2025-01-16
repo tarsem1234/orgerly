@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\UserWellnessPoint;
 use App\Models\Backend\WellnessCategory;
 use App\Models\Backend\WellnessCategorySession;
-use App\Models\Backend\UserWellnessPoint;
 use App\Models\UserWellnessSession;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;

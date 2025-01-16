@@ -10,8 +10,6 @@ class Favorite extends Model
 {
     use SoftDeletes;
 
-    
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Access\User\User::class);

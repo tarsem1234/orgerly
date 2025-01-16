@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rating_templates', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            
+
             $table->integer('user_id')->unsigned()->index('user_id');
             $table->string('employee_ids')->default('[]');
             $table->boolean('has_rating')->default(0);
