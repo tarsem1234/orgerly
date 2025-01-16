@@ -11,7 +11,7 @@ use App\Models\UserProfile;
 use App\Notifications\Frontend\Auth\RecieverNeedsLogin;
 use App\Notifications\Frontend\Auth\SenderNeedsConfirmation;
 use App\Notifications\Frontend\Auth\SenderNeedsRegistration;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class SignerController extends Controller
