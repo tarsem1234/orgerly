@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\AccountabilityPartnerRequest;
 use App\Models\Access\User\User;
@@ -10,6 +9,7 @@ use App\Models\AccountabilityPartner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class AccountabilityPartnerController extends Controller
 {

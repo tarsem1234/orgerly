@@ -12,13 +12,13 @@ class SignStoreSignerRequest extends FormRequest
     public function rules(): array
     {
         return [
-'name'  => [
+            'name' => [
                 'required',
             ],
-'email' => [
+            'email' => [
                 'required',
                 'email',
             ],
-];
+        ];
     }
 }

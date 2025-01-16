@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Mail\Frontend\WellnessSummaryMail;
 use App\Models\Access\User\User;
@@ -14,6 +13,7 @@ use App\Models\Signer;
 use App\Models\UserWellnessSession;
 use App\Services\EmailLogService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 // use App\Models\Backend\UserWellnessPoint;

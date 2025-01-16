@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\StoreCompanyRequest;
-// use App\Http\Requests\Backend\UpdateCompanyRequest;
 use App\Models\Backend\Company;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+// use App\Http\Requests\Backend\UpdateCompanyRequest;
+use Illuminate\View\View;
 
 class CompanyController extends Controller
 {

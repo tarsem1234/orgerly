@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\ContractToolSignerSignerRequest;
 use App\Http\Requests\Frontend\SignStoreSignerRequest;
-use App\Http\Controllers\Controller;
 use App\Models\Access\User\User;
 use App\Models\Network;
 use App\Models\Signer;
@@ -16,8 +13,10 @@ use App\Models\UserProfile;
 use App\Notifications\Frontend\Auth\RecieverNeedsLogin;
 use App\Notifications\Frontend\Auth\SenderNeedsConfirmation;
 use App\Notifications\Frontend\Auth\SenderNeedsRegistration;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SignerController extends Controller
 {
