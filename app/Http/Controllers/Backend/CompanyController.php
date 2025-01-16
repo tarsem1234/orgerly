@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Models\Backend\Company;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\StoreCompanyRequest;
 // use App\Http\Requests\Backend\UpdateCompanyRequest;
-use App\Http\Controllers\Controller;
+use App\Models\Backend\Company;
+
 class CompanyController extends Controller
 {
     /**
@@ -34,7 +34,7 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        
+
         $checkIfComp = Company::where('name', $request->company)->first();
         if ($checkIfComp != null) {
             return redirect()->route('admin.companies.create')->with('flash_warning',
@@ -95,7 +95,6 @@ class CompanyController extends Controller
     public function destroy(int $id)
     {
         if (Company::where('id', $id)->delete()) {
-            
 
             return response()->json(['success' => true, 'message' => 'Company deleted successfully'],
                 200);

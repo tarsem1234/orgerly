@@ -36,7 +36,6 @@ class IndustryController extends Controller
      */
     public function store(StoreIndustryRequest $request): RedirectResponse
     {
-        
 
         $checkIfIndustry = Industry::where('industry', $request->industry)->first();
         if ($checkIfIndustry != null) {

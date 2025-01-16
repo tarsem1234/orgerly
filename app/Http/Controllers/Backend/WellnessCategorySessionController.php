@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Http\Controllers\Controller;
-use App\Models\Backend\WellnessCategory;
-use App\Models\Backend\WellnessCategorySession;
 use App\Http\Requests\Backend\SaveSessionWellnessSessionRequest;
 use App\Http\Requests\Backend\StoreWellnessCategorySessionRequest;
+use App\Models\Backend\UserLearningPoint;
+use App\Models\Backend\WellnessCategory;
+use App\Models\Backend\WellnessCategorySession;
 use App\Models\Backend\WellnessCategorySessionQuestion;
 use App\Models\Backend\WellnessCategorySessionQuestionOption;
-use App\Models\Backend\UserLearningPoint;
 // use App\Models\WellnessCategorySession;
 // use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -16,12 +17,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+
 class WellnessCategorySessionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-     public function index($categoryId = null): View
+    public function index($categoryId = null): View
     {
         $sessions = WellnessCategorySession::whereHas('category', function ($query) {
             $query->where('status', 1)->with('category');
@@ -133,6 +135,7 @@ class WellnessCategorySessionController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Session Deletion Failed'], 500);
     }
+
     public function saveSession(SaveSessionWellnessSessionRequest $request)
     {
         $data = $request->all();
@@ -170,6 +173,7 @@ class WellnessCategorySessionController extends Controller
 
         return response('Fail', 500)->json(['status' => false, 'message' => 'Something went wrong. Please try again']);
     }
+
     public function deactivate($id): RedirectResponse
     {
 

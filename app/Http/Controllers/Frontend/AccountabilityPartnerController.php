@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\AccountabilityPartner;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Http\Requests\Frontend\AccountabilityPartnerRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Network;
-use Illuminate\View\View;
-use App\Models\Access\User\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\AccountabilityPartnerRequest;
+use App\Models\Access\User\User;
+use App\Models\AccountabilityPartner;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class AccountabilityPartnerController extends Controller
 {
     /**
@@ -42,16 +40,15 @@ class AccountabilityPartnerController extends Controller
     {
         $exists = AccountabilityPartner::where('email', $request->email)->first();
         if ($exists) {
-           
+
             return redirect()->route('frontend.account_partner.index')->with('flash_danger', 'Partner Already Exist.');
-        }
-        else
-        {
-            $signer = new AccountabilityPartner();
+        } else {
+            $signer = new AccountabilityPartner;
             $signer->user_id = Auth::id();
             $signer->email = $request->email;
             $signer->name = $request->name;
             $signer->save();
+
             return redirect()->route('frontend.account_partner.index')->with('flash_success', 'Partner saved successfully.');
         }
         // $ifNewUser = true;
@@ -87,12 +84,13 @@ class AccountabilityPartnerController extends Controller
 
         // return redirect()->route('frontend.account_partner.index')->with('flash_success', 'Already sent.');
     }
+
     public function signerView($id)
     {
         if (Auth::check() && $id) {
 
             $user = AccountabilityPartner::where('id', $id)->where('user_id', Auth::id())->first();
-            
+
             //            dump($user->toArray());
             //            dd($network->toArray());
             return view('frontend.account_partner.user_details', compact('user'));
@@ -100,6 +98,7 @@ class AccountabilityPartnerController extends Controller
 
         return redirect()->route('frontend.index')->with('flash_success', 'Something went wrong, please try later.');
     }
+
     public function deletePartner($id)
     {
         if ($id && Auth::check()) {
@@ -115,6 +114,7 @@ class AccountabilityPartnerController extends Controller
         //        return response()->json(['success' => true, 'message' => 'Signer Deletion Failed'],
         //                500);
     }
+
     public function store(Request $request)
     {
         //

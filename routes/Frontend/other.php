@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Frontend\CronController;
 use App\Http\Controllers\Frontend\LearningCenterController;
-use App\Http\Controllers\Frontend\WellnessController;
 use App\Http\Controllers\Frontend\MessageController;
 use App\Http\Controllers\Frontend\NetworkController;
 use App\Http\Controllers\Frontend\PropertyController;
+use App\Http\Controllers\Frontend\WellnessController;
 use App\Http\Controllers\Frontend\XmlFeedController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,11 +27,11 @@ Route::middleware('auth')->group(function () {
         Route::get('property/{id}/manage-availablity/', [PropertyController::class, 'manageAvailabilty'])->name('manageAvailablity');
         Route::get('get-availability/{id}', [PropertyController::class, 'getVacationAvailability'])->name('getVacationAvailability');
 
-         Route::get('wellness-center', [WellnessController::class, 'index'])->name('wellness.center');
-         Route::get('wellness-center/learning_topic/{id}', [WellnessController::class, 'learningTopic'])->name('wellness.topic');
-         Route::get('wellness-center/learning_session/{id}', [WellnessController::class, 'learningSession'])->name('wellness.session');
-         Route::get('wellness-center/session/{id}/bonus', [WellnessController::class, 'learningSession'])->name('wellness.bonus_session');
-         Route::post('wellness-center/learning_session/submit_answer', [WellnessController::class, 'submitAnswer'])->name('wellness.answer');
+        Route::get('wellness-center', [WellnessController::class, 'index'])->name('wellness.center');
+        Route::get('wellness-center/learning_topic/{id}', [WellnessController::class, 'learningTopic'])->name('wellness.topic');
+        Route::get('wellness-center/learning_session/{id}', [WellnessController::class, 'learningSession'])->name('wellness.session');
+        Route::get('wellness-center/session/{id}/bonus', [WellnessController::class, 'learningSession'])->name('wellness.bonus_session');
+        Route::post('wellness-center/learning_session/submit_answer', [WellnessController::class, 'submitAnswer'])->name('wellness.answer');
     });
     /* Listing Availability */
     Route::post('property/add_availability', [PropertyController::class, 'addAvailability'])->name('property.add_availability');
