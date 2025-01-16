@@ -21,5 +21,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ])->toArray(),
+<<<<<<< HEAD
 ];
+=======
+>>>>>>> 3075216fc191bf7f2d7a5f78e150135cbe8a1a67
 
